@@ -1,0 +1,20 @@
+project-root/
+|-- src/
+|   |-- config/
+|
+|   |-- controllers/
+|
+|   |-- middleware/
+|
+|   |-- models/
+|
+|   |-- services/
+|
+|   |-- routes/
+|
+|   |-- app.js                 (Express app setup)
+|
+|-- .env                       (Environment variables)
+|-- .gitignore
+|-- package.json
+|-- README.md
