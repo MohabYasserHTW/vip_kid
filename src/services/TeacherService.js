@@ -1,22 +1,23 @@
-import Teacher, { ITeacher } from "./../models/Teacher";
-import HttpError from "../models/HttpError";
-import bcrypt from "bcrypt";
+const Teacher = require("../models/Teacher");
+const HttpError = require("../models/HttpError");
+const bcrypt = require("bcrypt");
+
 
 async function registerUser(
-  username: string,
-  email: string,
-  password: string
-): Promise<ITeacher> {
+  username,
+  email,
+  password
+) {
   try {
     const encryptedPW = await bcrypt.hash(password, 10);
     const newUser = new Teacher({ username, email, password: encryptedPW });
     return await newUser.save();
-  } catch (error: any) {
+  } catch (error) {
     throw new HttpError(error.message, 500);
   }
 }
 
-async function loginUser(userName:string,password:string): Promise<ITeacher>{
+async function loginUser(userName,password){
   try {
     const teacher = await Teacher.findOne({username:userName})
 
@@ -30,10 +31,10 @@ async function loginUser(userName:string,password:string): Promise<ITeacher>{
       throw new HttpError("wrong password", 401)
     }
 
-    return  teacher as ITeacher
-  } catch (error: any) {
+    return  teacher 
+  } catch (error) {
     throw new HttpError(error.message, error.code || 501);
   }
 }
 
-export default { registerUser, loginUser };
+module.exports = { registerUser, loginUser };

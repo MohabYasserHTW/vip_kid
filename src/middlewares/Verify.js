@@ -1,21 +1,16 @@
-import { Request, Response, NextFunction } from "express";
-import HttpError from "../models/HttpError";
-import AuthService from "../services/AuthService";
 
-export interface ICustomReq extends Request {
-  userData?: {
-    userId: string;
-    userName: string;
-    userType: "Teacher" | "Parent" | "Kid";
-  };
-}
+const HttpError = require("../models/HttpError");
+const AuthService = require("../services/AuthService");
 
-export const verify = (req: ICustomReq, res: Response, next: NextFunction) => {
+
+
+
+ const verify = (req, res, next) => {
   if (req.method === "OPTIONS") {
     return next();
   }
   try {
-    let token: string | undefined;
+    let token;
     token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
@@ -38,3 +33,6 @@ export const verify = (req: ICustomReq, res: Response, next: NextFunction) => {
     return next(new HttpError("auth failed    ", 401));
   }
 };
+
+
+module.exports = verify

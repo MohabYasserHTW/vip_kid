@@ -1,19 +1,15 @@
-import { Request, Response, NextFunction } from "express";
-import TeacherService from "../services/TeacherService";
-import AuthService from "../services/AuthService";
+
+const ParentService = require("../services/ParentService");
+const AuthService = require("../services/AuthService");
 
 async function register(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
+  req,
+  res,
+  next
+) {
   try {
     const { username, email, password } = req.body;
-    const newUser = await TeacherService.registerUser(
-      username,
-      email,
-      password
-    );
+    const newUser = await ParentService.registerUser(username, email, password);
     const token = AuthService.createToken({
       userId: newUser._id,
       userName: newUser.username,
@@ -26,10 +22,10 @@ async function register(
   }
 }
 
-async function login(req: Request, res: Response, next: NextFunction):Promise<void> {
+async function login(req, res, next){
   try{
     const { username, email, password } = req.body;
-    const parent = await TeacherService.loginUser(username,password)
+    const parent = await ParentService.loginUser(username,password)
     const token = AuthService.createToken({
       userId: parent._id,
       userName: parent.username,
@@ -42,4 +38,4 @@ async function login(req: Request, res: Response, next: NextFunction):Promise<vo
   }
 }
 
-export default { register };
+module.exports = { register, login };

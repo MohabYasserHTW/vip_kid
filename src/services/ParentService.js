@@ -1,23 +1,24 @@
-import Parent, { IParent } from "./../models/Parent";
-import HttpError from "../models/HttpError";
-import bcrypt from "bcrypt";
+const Parent = require("../models/Parent");
+const HttpError = require("../models/HttpError");
+const bcrypt = require("bcrypt");
+
 
 async function registerUser(
-  username: string,
-  email: string,
-  password: string
-): Promise<IParent> {
+  username,
+  email,
+  password
+) {
   try {
     const encryptedPW = await bcrypt.hash(password, 10);
     const newUser = new Parent({ username, email, password: encryptedPW });
 
     return await newUser.save();
-  } catch (error: any) {
+  } catch (error) {
     throw new HttpError(error.message, 500);
   }
 }
 
-async function loginUser(userName:string,password:string): Promise<IParent>{
+async function loginUser(userName,password){
   try {
     const parent = await Parent.findOne({username:userName})
 
@@ -31,11 +32,11 @@ async function loginUser(userName:string,password:string): Promise<IParent>{
       throw new HttpError("wrong password", 401)
     }
 
-    return  parent as IParent
-  } catch (error: any) {
+    return  parent 
+  } catch (error) {
     throw new HttpError(error.message, error.code || 501);
   }
 }
 
 
-export default { registerUser, loginUser };
+module.exports = { registerUser, loginUser };

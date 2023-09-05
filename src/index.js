@@ -1,9 +1,11 @@
-import express from "express";
-import mongoose from "mongoose";
-import { ErrorHandeler } from "./middleware/ErrorHandeler";
-import envVariables from "./config/env";
-import authRoutes from "./routes/AuthRoutes";
-import { errors, success } from "./config/constants";
+
+const express = require("express")
+const mongoose = require("mongoose");
+const ErrorHandeler  = require("./middlewares/ErrorHandeler");
+const envVariables = require("./config/env");
+const authRoutes = require("./routes/AuthRoutes");
+const { errors, success } = require("./config/constants");
+
 
 const app = express();
 

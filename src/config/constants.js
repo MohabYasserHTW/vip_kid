@@ -1,7 +1,9 @@
-export const errors = {
+ const errors = {
   dbFailed: "Couldn't connect to  database",
 };
 
-export const success = {
+ const success = {
   dbConnected: "Successfully connect to database",
 };
+
+module.exports = {errors, success}

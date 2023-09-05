@@ -1,8 +1,9 @@
-import express from "express";
-import ParentController from "../controllers/ParentController";
-import KidController from "../controllers/KidController";
-import TeacherController from "../controllers/TeacherController";
-import { verify } from "../middleware/Verify";
+const express = require("express");
+const ParentController = require("../controllers/ParentController");
+const KidController = require("../controllers/KidController");
+const TeacherController = require("../controllers/TeacherController");
+const verify  = require("../middlewares/Verify");
+
 
 const router = express.Router();
 
@@ -53,4 +54,4 @@ router.post("/kids/login", verify, KidController.register);
 router.post("/teachers/register", TeacherController.register);
 router.post("/teachers/login", TeacherController.register);
 
-export default router;
+module.exports = router;
